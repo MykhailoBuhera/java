@@ -1,0 +1,90 @@
+﻿Database: universityDB
+
+The database is designed to store a university schedule. It consists of several collections, each representing a separate entity. The main collection is "schedule", which connects all other collections through identifiers.
+
+Collection: teachers
+Description: Stores information about teachers.
+Semantic aliases: teacher, professor, викладач
+Fields:
+
+_id (number) – unique identifier of the teacher
+teacher_name (string) – full name of the teacher
+department (string) – department name
+position (string) – teacher’s position
+
+Used in: schedule.teacher_id
+
+Collection: groups
+Description: Stores information about student groups.
+Semantic aliases: group, student group, група
+Fields:
+
+_id (number) – unique identifier of the group
+group_number (string) – group name/number
+specialty (string) – specialty name
+faculty (string) – faculty name
+student_count (number) – number of students
+
+Used in: schedule.group_id
+
+Collection: classrooms
+Description: Stores information about classrooms.
+Semantic aliases: classroom, room, аудиторія, кабінет, клас
+Fields:
+
+_id (number) – unique identifier of the classroom
+room_number (string) – room number
+room_type (string) – type of classroom (lecture, lab, etc.)
+capacity (number) – number of seats
+has_multimedia (boolean) – availability of multimedia equipment
+
+Used in: schedule.room_id
+
+Collection: subjects
+Description: Stores information about subjects.
+Semantic aliases: subject, discipline, предмет, дисципліна
+Fields:
+
+_id (number) – unique identifier of the subject
+subject_name (string) – subject name
+
+Used in: schedule.subject_id
+
+Collection: classTypes
+Description: Stores types of classes.
+Semantic aliases: class type, lesson type, тип заняття
+Fields:
+
+_id (number) – unique identifier of the class type
+type_name (string) – type of class (lecture, practice, lab)
+
+Used in: schedule.type_id
+
+Collection: timeSlots
+Description: Stores information about lesson time.
+Semantic aliases: pair, time slot, пара, час
+Fields:
+
+_id (number) – unique identifier of the time slot
+pair_number (number) – lesson number
+start_time (string) – start time
+regularity (string) – lesson regularity (e.g., Weekly)
+
+Used in: schedule.slot_id
+
+Collection: schedule
+Description: Main collection that stores the timetable. It connects all other collections using identifiers.
+Semantic aliases: schedule, timetable, розклад
+Fields:
+
+_id (ObjectId) – unique identifier of the schedule record
+day_of_week (string) – day of the week
+teacher_id (number) – reference to teachers collection
+group_id (number) – reference to groups collection
+room_id (number) – reference to classrooms collection
+subject_id (number) – reference to subjects collection
+type_id (number) – reference to classTypes collection
+slot_id (number) – reference to timeSlots collection
+
+Overall description:
+The database uses a reference-based structure, where each entity is stored in a separate collection. The schedule collection acts as the central element, linking teachers, groups, subjects, classrooms, class types, and time slots into a complete timetable.
